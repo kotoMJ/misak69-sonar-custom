@@ -1,0 +1,148 @@
+
+apply plugin: "java"
+//apply plugin: "groovy"
+
+apply plugin: "idea"
+apply plugin: "eclipse"
+
+defaultTasks 'deployToSonar'
+
+repositories {
+    if (project.hasProperty('customMavenRepository')) {
+        maven {
+            url "$customMavenRepository";
+        }
+    }else{
+        mavenCentral()
+    }
+}
+
+/**
+ *
+ * Attention! Use transitive:false for sonar extensions, otherwise following error occurs:
+ *
+ *   * What went wrong:
+ *Could not resolve all dependencies for configuration ':compile'.
+ *> Could not download artifact 'org.codehaus.sonar-plugins.java:sonar-java-plugin:2.2.1@sonar-plugin'
+ *> Artifact 'org.codehaus.sonar-plugins.java:sonar-java-plugin:2.2.1@sonar-plugin' not found.
+ *
+ */
+ext.libraries = [
+        "sonar": [
+                [group: "org.codehaus.sonar", name: "sonar-plugin-api", version: "4.5", transitive:true],
+                [group: "org.codehaus.sonar-plugins.java", name:"sonar-java-plugin", version: "2.4",transitive:false],
+                //!ATTENTION! all below libraries are already bundled in sonar-java-plugin-2.4.jar (use only such bundled jar tools)
+                [group: "org.codehaus.sonar-plugins.java", name: "java-squid", version: "2.4", transitive: false],
+                [group: "org.codehaus.sonar.sslr-squid-bridge", name: "sslr-squid-bridge", version: "2.4",transitive: false],
+                [group: "org.codehaus.sonar.sslr", name:"sslr-core", version:"1.20", transitive: false]
+        ],
+        "junit": [
+                [group: "junit", name: "junit", version: "4.10"]
+        ]
+]
+
+dependencies {
+    compile libraries["sonar"]
+
+    testCompile libraries["sonar"]
+    testCompile libraries["junit"]
+
+//configurations.compile.exclude(group: "cz.kb.dms")
+}
+
+jar.archiveName = "misak69-ruleset-temp.jar"
+
+/*
+ * Date pattern yyyy-MM-dd'T'HH:mm:ssZ required by org.sonar.updatecenter.common.FormatUtils!
+ * Bad date format in manifest of the plugin will cause fail of plugin deploy!
+ */
+def timeStamp = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(new Date());
+
+def pluginName = "Custom java rules";
+
+def pluginHash = java.security.MessageDigest.getInstance("MD5").digest(pluginName.getBytes());
+
+/**
+ * Specification of dependencies necessary to be at disposal during DEPLOY to Sonar.
+ * Do NOT specify all configurations.runtime dependencies (as it would be redundant and messy).
+ */
+def pluginDependencies = "META-INF/lib/sslr-squid-bridge-2.4.jar " +
+                         "META-INF/lib/sslr-core-1.20.jar " +
+                         "META-INF/lib/java-squid-2.4.jar"
+
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main'
+        }
+    }
+}
+
+
+task copyToLib(type: Copy){
+    into ""
+}
+
+task sonarJar(type: Jar, dependsOn: "jar") {
+    archiveName = "misak69-ruleset.jar"
+    description = "Create jar ready to deploy on Sonar server."
+    from(zipTree(jar.archivePath))
+
+    from(file("conf/rules.xml")) {
+        into "rules"
+    }
+
+    //Add all dependency libraries in to the JAR file
+    from (configurations.runtime){
+        into "META-INF/lib"
+    }
+
+    /**
+     * Override manifest with below mentioned parameters, otherwise plugin will NOT be found by SONAR.
+     */
+    manifest {
+        attributes("Manifest-Version": "1.0",
+                    "Created-By": "Gradle",
+                    "Built-By": GradleVersion.current().toString(),
+                    "Build-Jdk": org.gradle.internal.jvm.Jvm.current(),
+                    "Build-Time": timeStamp,
+                    "Implementation-Build": pluginHash,
+                    "Plugin-BuildDate": timeStamp,
+                    "Plugin-Dependencies": pluginDependencies,
+                    "Plugin-Class": "cz.misak69.sonar.plugin.CustomPlugin",
+                    "Plugin-Description": "TBD.",
+                    "Plugin-Developers": "misak69",
+                    "Plugin-Key": "misak69-sonar",
+                    "Plugin-Name": pluginName,
+                    "Plugin-Version": "1.0",
+                    "Sonar-Version": "4.5")
+    }
+
+}
+
+if (!project.hasProperty('sonarDestination'))throw new GradleException("Missing sonarDestination property in gradle.properties!!!")
+if (!project.hasProperty('sonarDestination'))throw new GradleException("Missing sonarDestination property in gradle.properties!!!")
+def sonarPluginDirectory = "$sonarDestination/extensions/plugins"
+def sonarPluginCustomRuleSet = "$sonarPluginDirectory/$sonarJar.archiveName"
+
+task cleanUp(type: Delete, dependsOn: sonarJar){
+    delete  jar.archivePath
+    delete sonarPluginCustomRuleSet
+}
+
+cleanUp<<{
+    println "cleanup: $jar.archivePath"
+    println "cleanup: $sonarPluginCustomRuleSet"
+}
+
+task deployToSonar(type: Copy, dependsOn:cleanUp){
+    from './build/libs'
+    into sonarPluginDirectory
+}
+
+deployToSonar<<{
+    println "deploy: $sonarPluginCustomRuleSet"
+}
+

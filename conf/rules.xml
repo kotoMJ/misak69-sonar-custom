@@ -1,0 +1,13 @@
+<rules>
+    <rule>
+        <!-- required fields -->
+        <key>damaged-dcs-test-rule</key>
+        <name>DCS test rule from xml</name>
+
+        <!-- optional fields -->
+        <description>
+            Description for test rule from xml
+        </description>
+        <severity>BLOCKER</severity>
+    </rule>
+</rules>
