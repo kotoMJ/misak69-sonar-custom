@@ -26,7 +26,7 @@ public class CustomPlugin extends SonarPlugin {
      */
     @Override
     public List getExtensions() {
-        System.out.println("#dcs | DCSPlugin.getExtensions");
+        System.out.println("#misak69 | CustomPlugin.getExtensions");
         return ImmutableList.of(CustomRulesDefinition.class, CustomQualityProfile.class, TestRule.class);
     }
 

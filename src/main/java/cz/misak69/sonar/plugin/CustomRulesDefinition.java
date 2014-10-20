@@ -18,8 +18,8 @@ import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
  */
 public class CustomRulesDefinition implements RulesDefinition {
 
-    public static final String REPOSITORY_KEY = "dcs-rules";
-    public static final String REPOSITORY_NAME = "DCSRuleRepository";
+    public static final String REPOSITORY_KEY = "custom-rules";
+    public static final String REPOSITORY_NAME = "CustomRuleRepository";
 
     private final RulesDefinitionXmlLoader xmlLoader;
 
@@ -28,8 +28,8 @@ public class CustomRulesDefinition implements RulesDefinition {
     }
     @Override
     public void define(Context context) {
-        System.out.println("#dcs | DCSRulesDefinition.define");
-        NewRepository  repository = context.createRepository(REPOSITORY_KEY, CoreProperties.CATEGORY_JAVA).setName("DCS rule repository");
+        System.out.println("#misak69 | CustomRulesDefinition.define");
+        NewRepository  repository = context.createRepository(REPOSITORY_KEY, CoreProperties.CATEGORY_JAVA).setName("Custom rule repository");
 //        NewRule accessRule = repository.createRule(PublicAccessRule.KEY)
 //                                       .setName(PublicAccessRule.NAME)
 //                                       .setHtmlDescription(PublicAccessRule.DESCRIPTION)

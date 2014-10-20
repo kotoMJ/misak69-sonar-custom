@@ -26,7 +26,7 @@ import org.sonar.plugins.java.api.tree.MethodTree;
       description = TestRule.DESCRIPTION,
       tags = {TestRule.TAG})
 
-@BelongsToProfile(title = CustomQualityProfile.DCS_QA_PROFILE, priority = Priority.BLOCKER)
+@BelongsToProfile(title = CustomQualityProfile.CUSTOM_QA_PROFILE, priority = Priority.BLOCKER)
 /**
  * The class extends BaseTreeVisitor: the visitor for the Java AST.
  * The logic of the rule sonais implemented by overriding its methods.
@@ -36,20 +36,20 @@ import org.sonar.plugins.java.api.tree.MethodTree;
 
 public class TestRule extends BaseTreeVisitor implements JavaFileScanner {
 
-    public static final String KEY = "dcs-test-rule";
+    public static final String KEY = "custom-test-rule";
     private final RuleKey RULE_KEY = RuleKey.of(CustomRulesDefinition.REPOSITORY_KEY, KEY);
-    public static final String NAME = "DCS test rule";
-    public static final String DESCRIPTION = "DCS test rule to check if custom plugin works.";
+    public static final String NAME = "Custom test rule";
+    public static final String DESCRIPTION = "Custom test rule to check if custom plugin works.";
 
     /**
      * Tags(e.g. tags = {"dcs"}) must follow specific rule given by org.sonar.api.server.rule.RuleTagFormat(sonar-plugin-api-4.2.jar)
      * Rule tags accept only the following characters: a-z, 0-9, '+', '-', '#', '.'
      */
-    public static final String TAG = "dcs";
+    public static final String TAG = "misak69-custom";
 
     public TestRule() {
         super();
-        System.out.println("#dcs | TestRule.constructed...");
+        System.out.println("#misak69 | TestRule.constructed...");
     }
 
     /**
@@ -65,7 +65,7 @@ public class TestRule extends BaseTreeVisitor implements JavaFileScanner {
     public void scanFile(JavaFileScannerContext context) {
         this.context = context;
 
-        System.out.println("#dcs | TestRule.scanFile...");
+        System.out.println("#misak69 | TestRule.scanFile...");
 
         // The call to the scan method on the root of the tree triggers the visit of the AST by this visitor
         scan(context.getTree());
@@ -83,7 +83,7 @@ public class TestRule extends BaseTreeVisitor implements JavaFileScanner {
     @Override
     public void visitMethod(MethodTree tree) {
 
-        System.out.println("#dcs | TestRule.visitMethod...");
+        System.out.println("#misak69 | TestRule.visitMethod...");
 
 
         // All the code located before the call to the overridden method is executed before visiting the node

@@ -36,8 +36,8 @@ import java.util.regex.Pattern;
       priority = Priority.MINOR,
       name = PublicAccessRule.NAME,
       description = PublicAccessRule.DESCRIPTION,
-      tags = {TestRule.TAG})
-@BelongsToProfile(title = CustomQualityProfile.DCS_QA_PROFILE, priority = Priority.MINOR)
+      tags = {PublicAccessRule.TAG})
+@BelongsToProfile(title = CustomQualityProfile.CUSTOM_QA_PROFILE, priority = Priority.MINOR)
 /**
  * The class extends BaseTreeVisitor: the visitor for the Java AST.
  * The logic of the rule is implemented by overriding its methods.
@@ -48,7 +48,7 @@ public class PublicAccessRule extends SquidCheck<LexerlessGrammar> implements As
     public static final String KEY = "public-access-rule";
     public static final String NAME = "Public access rule";
     public static final String DESCRIPTION = "Avoid using non API classes across modules!";
-    public static final String TAG = "dcs";
+    public static final String TAG = TestRule.TAG;
 
     Map<String, List<String>> FO_TO_MODULE = new HashMap<String, List<String>>();
     List<String> EXCEPTIONS_TO_SKIP = new ArrayList<String>();
@@ -61,13 +61,13 @@ public class PublicAccessRule extends SquidCheck<LexerlessGrammar> implements As
 
     public PublicAccessRule() {
         super();
-        System.out.println("#dcs | PublicAccessRule.constructed...");
+        System.out.println("#misak69 | PublicAccessRule.constructed...");
     }
 
     @Override
     public void init() {
 
-        System.out.println("#dcs | PublicAccessRule.init!");
+        System.out.println("#misak69 | PublicAccessRule.init!");
 
         subscribeTo(JavaGrammar.PACKAGE_DECLARATION);
         subscribeTo(JavaGrammar.IMPORT_DECLARATION);
@@ -116,7 +116,7 @@ public class PublicAccessRule extends SquidCheck<LexerlessGrammar> implements As
 //        pendingReferences.clear();
 //        lineByImportReference.clear();
 //        pendingImports.clear();
-        System.out.println("#dcs | PublicAccessRule.visitFile:"+astNode.toString());
+        System.out.println("#misak69 | PublicAccessRule.visitFile:"+astNode.toString());
         currentPackage = "";
         currentProject = "";
         currentFunctionalArea = "";
@@ -126,16 +126,16 @@ public class PublicAccessRule extends SquidCheck<LexerlessGrammar> implements As
     public void visitNode(AstNode node) {
         getContext().createLineViolation(this, "PublicAccessRule.node visted!", node);
 
-        System.out.println("#dcs | PublicAccessRule.node.visited");
+        System.out.println("#misak69 | PublicAccessRule.node.visited");
         if (node.is(JavaGrammar.PACKAGE_DECLARATION)) {
             currentPackage = mergeIdentifiers(node.getFirstChild(JavaGrammar.QUALIFIED_IDENTIFIER));
 
             getContext().createLineViolation(this, "PublicAccessRule.package:"+currentPackage, node);
 
-            if (currentPackage.startsWith("cz.kb.dcs")){
+            if (currentPackage.startsWith("cz.misak69")){
                 currentProject = cutProjectOrModule(currentPackage);
                 currentFunctionalArea = cutFunctionalArea(currentPackage);
-                //getContext().createLineViolation(this, "KB package resolved", node);
+                //getContext().createLineViolation(this, "... package resolved", node);
             }
         } else if (node.is(JavaGrammar.IMPORT_DECLARATION)) {
 
@@ -147,7 +147,7 @@ public class PublicAccessRule extends SquidCheck<LexerlessGrammar> implements As
                 getContext().createLineViolation(this, "PublicAccessRule.declaredImport:"+declaredImport, node);
 
                 if ((currentProject.length()>0) && (declaredImport.length()>0) && isLinkToModule(currentPackage)){
-                    System.out.println("#dcs | PublicAccessRule.debug...");
+                    System.out.println("#misak69 | PublicAccessRule.debug...");
                     if (declaredImport.contains(currentProject)){
                         //thats ok, same module
                     } else if (isAPI(declaredImport)) {
@@ -155,7 +155,7 @@ public class PublicAccessRule extends SquidCheck<LexerlessGrammar> implements As
                     } else if (isFOtoModule(declaredImport, currentFunctionalArea)) {
                         //thats ok, calling fo
                     } else {
-                        System.out.println("#dcs | PublicAccessRule.violation: Bad using package implementation for package:"+currentPackage);
+                        System.out.println("#misak69 | PublicAccessRule.violation: Bad using package implementation for package:"+currentPackage);
                         //that's bad, using package implementation
                         getContext().createLineViolation(this, "Bad using package implementation!", node);
                     }

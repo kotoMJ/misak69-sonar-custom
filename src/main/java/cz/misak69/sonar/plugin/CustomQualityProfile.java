@@ -17,50 +17,29 @@ import java.util.Collection;
  */
 public class CustomQualityProfile extends ProfileDefinition {
 
-//    private final AnnotationProfileParser annotationProfileParser;
+    public static final String CUSTOM_QA_PROFILE = "Custom Test profile";
 
-    public static final String DCS_QA_PROFILE = "DCS Test profile";
-
-//    public DCSQualityProfile(AnnotationProfileParser annotationProfileParser) {
-//        this.annotationProfileParser = annotationProfileParser;
-//        System.out.println("#dcs | DCSQualityProfile.constructor");
-//    }
 
     private final RuleFinder ruleFinder;
 
     public CustomQualityProfile(RuleFinder ruleFinder) {
         this.ruleFinder = ruleFinder;
-        System.out.println("#dcs | DCSQualityProfile.constructor");
+        System.out.println("#misak69 | CustomQualityProfile.constructor");
     }
 
-//    private final XMLProfileParser parser;
-//
-//    public DCSQualityProfile(XMLProfileParser parser) {
-//        this.parser = parser;
-//    }
 
     @Override
     public RulesProfile createProfile(ValidationMessages validationMessages) {
-        System.out.println("#dcs | DCSQualityProfile.createProfile");
+        System.out.println("#misak69 | CustomQualityProfile.createProfile");
         Collection<Class> annotatedCollection = new ArrayList<Class>();
         annotatedCollection.add(TestRule.class);
-        //annotatedCollection.add(PublicAccessRule.class);
-        //return annotationProfileParser.parse(DCSRulesDefinition.REPOSITORY_KEY, DCS_QA_PROFILE, Java.KEY, annotatedCollection, validationMessages);
 
-//        InputStream input = getClass().getResourceAsStream("/rules/rules.xml");
-//        InputStreamReader reader = new InputStreamReader(input);
-//        try {
-//            return parser.parse(reader, validationMessages);
-//        } finally {
-//            IOUtils.closeQuietly(reader);
-//        }
-
-        RulesProfile profile = RulesProfile.create(DCS_QA_PROFILE, Java.KEY);
+        RulesProfile profile = RulesProfile.create(CUSTOM_QA_PROFILE, Java.KEY);
         for (Class ruleClass : annotatedCollection) {
             String ruleKey = RuleAnnotationUtils.getRuleKey(ruleClass);
-            System.out.println("#dcs | ruleKey:"+ruleKey+" for class:"+ruleClass);
+            System.out.println("#misak69 | ruleKey:"+ruleKey+" for class:"+ruleClass);
             Rule rule = ruleFinder.findByKey(CustomRulesDefinition.REPOSITORY_KEY, ruleKey);
-            System.out.println("#dcs | rule:"+rule);
+            System.out.println("#misak69 | rule:"+rule);
             profile.activateRule(rule, null);
         }
         return profile;

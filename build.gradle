@@ -47,7 +47,6 @@ dependencies {
     testCompile libraries["sonar"]
     testCompile libraries["junit"]
 
-//configurations.compile.exclude(group: "cz.kb.dms")
 }
 
 jar.archiveName = "misak69-ruleset-temp.jar"

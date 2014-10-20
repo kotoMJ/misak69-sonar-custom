@@ -1,8 +1,8 @@
 <rules>
     <rule>
         <!-- required fields -->
-        <key>damaged-dcs-test-rule</key>
-        <name>DCS test rule from xml</name>
+        <key>damaged-custom-test-rule</key>
+        <name>Custom test rule from xml</name>
 
         <!-- optional fields -->
         <description>
