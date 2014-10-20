@@ -1,5 +1,5 @@
-misak69-playground
-==================
+
+Open points (TO BE DONE): test rule from this project will be successfully deployed to Sonar, but it is NOT applied by analysis (gradle --stacktrace -PsonarValidation=java sonarRunner)
 
 
 ================================================
