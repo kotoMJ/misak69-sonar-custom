@@ -1,6 +1,7 @@
 
 Open points (TO BE DONE): test rule from this project will be successfully deployed to Sonar, but it is NOT applied by analysis (gradle --stacktrace -PsonarValidation=java sonarRunner)
 
+<b>Use project https://github.com/misak69/misak69-sonar-custom-resource as project to be analysed by sonar(using gradle)</b>
 
 ================================================
 Resources for this new way of rules development:
