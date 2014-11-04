@@ -14,7 +14,7 @@ http://docs.codehaus.org/display/SONAR/API+Changes
 
 <b>Use project https://github.com/misak69/misak69-sonar-custom-resource as project to be analysed by sonar(using gradle)</b>
 
-<h2>Basics for Java plugin API development</h2>
+<h2>Basic knowledge for Java plugin API development/deployment</h2>
 
 <ul>
 <li>Create a class implementing RulesDefinition -> it is a ServerExtension whose sole purpose is to make your custom 
@@ -29,6 +29,14 @@ If you forget 2, they will be activable / configurable, but will never be execut
 </div>
 
 
+<h2>Important gradle tasks</h2>
+<ul>
+<li><b>idea</b> or <b>eclipse</b> task to generate IDE project files.</li>
+<li><b>deployTosonar</b> (default) task to create jar and deploy it to sonar</li>
+</ul>
+
+<div>Create file named <b>gradle.properties</b> based on <i>gradle.properties.sample</i> to define where is Sonar located 
+and for other project related properties.</div>
 
 <h2>References for Java plugin API development</h2>
 Use stack-overflow for configuration questions only!
@@ -51,3 +59,5 @@ https://github.com/SonarSource/sonar-java/blob/master/sonar-java-plugin/src/main
 https://github.com/SonarSource/sonar-java/tree/master/java-checks/src/main/java/org/sonar/java/checks
 
 For maven repository artifacts see: http://maven-repository.com/artifact/org.codehaus.sonar-plugins.java
+
+
