@@ -3,6 +3,12 @@ Open points (TO BE DONE): test rule from this project will be successfully deplo
 
 <b>Use project https://github.com/misak69/misak69-sonar-custom-resource as project to be analysed by sonar(using gradle)</b>
 
+Designed for :<br/>
+<ul>
+<li>Sonar 4.5</li>
+<li>Gradle 2.x</li>
+</ul>
+
 ================================================
 Resources for this new way of rules development:
 ================================================
@@ -13,6 +19,7 @@ Look for help
 http://markmail.org/list/org.codehaus.sonar.dev
 
 Ask for help
+http://sonarqube.15.x6.nabble.com/SonarQube-Developers-f4523654.html
 http://xircles.codehaus.org/lists/dev@sonar.codehaus.org
 
 
