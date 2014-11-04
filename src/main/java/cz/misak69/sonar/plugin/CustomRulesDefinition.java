@@ -7,13 +7,17 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 
 /**
- * Defines a custom rules repository
+ * Custom rules definition 1(LOAD TIME - Sonar UI appearance).
  *
- * With Sonar 4.3 New API org.sonar.api.server.rule.RulesDefinition to declare rules.
+ * Since Sonar 4.3 use new API org.sonar.api.server.rule.RulesDefinition to declare rules.
  * It includes metadata related to technical debt model.
  * It replaces the deprecated org.sonar.api.rules.RuleRepository.
  *
- *
+ * Create a class implementing RulesDefinition ->
+ * it is a ServerExtension whose sole purpose is to make your custom rules appear in SonarQube's UI
+ * if you've explicitly provided a definition (programatically, or in a XML file, or through annotations).
+ * This extension is loaded at server startup.
+
  *
  */
 public class CustomRulesDefinition implements RulesDefinition {

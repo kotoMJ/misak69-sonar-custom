@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * User: misak
- * Date: 2014.10.06
+ * Quality profile pre-definition.
+ *
+ * CURRENTLY not working for this plugin.
+ *
  */
 public class CustomQualityProfile extends ProfileDefinition {
 
