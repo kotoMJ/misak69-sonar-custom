@@ -33,7 +33,7 @@ If you forget 2, they will be activable / configurable, but will never be execut
 The way to write custom checks for Java as of today is to use the <strong>BaseTreeVisitor</strong>. 
 All the other ways are now deprecated and Sonar group is working to be able to remove them 
 (but it is not always straightforward as some of them requires a complete semantic analysis to be removed).
-
+<br/><br/>
 BaseTreeVisitor does not use SSLR directly, the java plugin is not moving away from SSLR rather from one class, 
 specifically ASTNode, in order to work on a SyntaxTree with a class specific for each type of node, 
 The drop of Xpath checks occurs in that logic of moving away from a non-typed SyntaxTree
