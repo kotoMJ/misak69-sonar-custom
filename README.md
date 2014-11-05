@@ -62,11 +62,8 @@ http://xircles.codehaus.org/lists/dev@sonar.codehaus.org
 <strong>Important Sonar API changes:</strong><br/>
 http://docs.codehaus.org/display/SONAR/API+Changes
 
-<strong>PRE-4.5 examples of how to implement your plugin</strong>:<br/>
-<div>https://github.com/SonarSource/sonar-examples</div>
-<div>https://github.com/SonarSource/sonarqube/blob/branch-4.3/plugins/sonar-xoo-plugin/src/main/java/org/sonar/xoo/rule/XooRulesDefinition.java</div>
-<div>https://github.com/SonarSource/sonar-java/blob/master/sonar-java-plugin/src/main/java/org/sonar/plugins/java/JavaSonarWayProfile.java</div>
-<div>https://github.com/SonarSource/sonar-java/tree/master/java-checks/src/main/java/org/sonar/java/checks</div>
+<strong>Wide range of mostly 4.5 examples based on BaseTreeVisitor</strong>
+https://github.com/SonarSource/sonar-java/tree/master/java-checks/src/main/java/org/sonar/java/checks
 
 <strong>Maven repository</strong><br/>
 For maven repository artifacts see: http://maven-repository.com/artifact/org.codehaus.sonar-plugins.java
