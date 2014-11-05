@@ -20,6 +20,7 @@ public class CustomRulesRepository implements JavaFileScannersFactory, BatchExte
 
     public CustomRulesRepository() {
         super();
+
         System.out.println("#misak69 | CustomRulesRepository.constructed");
     }
 

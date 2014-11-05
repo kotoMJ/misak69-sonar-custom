@@ -12,7 +12,7 @@
 Usage of Sonar 4.5 with gradle needs to use gradle 2.3 and higher (see https://issues.gradle.org/browse/GRADLE-3062)
 http://docs.codehaus.org/display/SONAR/API+Changes
 
-<b>Use project https://github.com/misak69/misak69-sonar-custom-resource as project to be analysed by sonar(using gradle)</b>
+<strong>Use project https://github.com/misak69/misak69-sonar-custom-resource as project to be analysed by sonar(using gradle)</strong>
 
 <h2>Basic knowledge for Java plugin API development/deployment</h2>
 
@@ -28,6 +28,17 @@ If you don't do 1. you won't be able to activate / configure them.
 If you forget 2, they will be activable / configurable, but will never be executed (and no error will be raised neither)
 </div>
 
+<h2>API development FUTURE</h2>
+<h3>BaseTreeVisitor</h3>
+The way to write custom checks for Java as of today is to use the <strong>BaseTreeVisitor</strong>. 
+All the other ways are now deprecated and Sonar group is working to be able to remove them 
+(but it is not always straightforward as some of them requires a complete semantic analysis to be removed).
+
+BaseTreeVisitor does not use SSLR directly, the java plugin is not moving away from SSLR rather from one class, 
+specifically ASTNode, in order to work on a SyntaxTree with a class specific for each type of node, 
+The drop of Xpath checks occurs in that logic of moving away from a non-typed SyntaxTree
+
+
 
 <h2>Important gradle tasks</h2>
 <ul>
@@ -35,27 +46,27 @@ If you forget 2, they will be activable / configurable, but will never be execut
 <li><b>deployTosonar</b> (default) task to create jar and deploy it to sonar</li>
 </ul>
 
-<div>Create file named <b>gradle.properties</b> based on <i>gradle.properties.sample</i> to define where is Sonar located 
+<div>Create file named <strong>gradle.properties</strong> based on <em>gradle.properties.sample</em> to define where is Sonar located 
 and for other project related properties.</div>
 
 <h2>References for Java plugin API development</h2>
 Use stack-overflow for configuration questions only!
 Coding plugin related questions should NOT be placed on stack-overflow, use following links instead:
 
-<b>Look for help</B>
+<strong>Look for help</strong>
 http://sonarqube.15.x6.nabble.com/SonarQube-Developers-f4523654.html
 http://xircles.codehaus.org/lists/dev@sonar.codehaus.org
 
 
 <h3>Other resources</h3>
-<b>DEPRECATED Example of how to implement your plugin</b>:
+<strong>DEPRECATED Example of how to implement your plugin</strong>:
 https://github.com/SonarSource/sonar-examples
 
-<b>NEW WAY OF custom plugin implementation</b>:
+<strong>NEW WAY OF custom plugin implementation</strong>:
 https://github.com/SonarSource/sonarqube/blob/branch-4.3/plugins/sonar-xoo-plugin/src/main/java/org/sonar/xoo/rule/XooRulesDefinition.java
 https://github.com/SonarSource/sonar-java/blob/master/sonar-java-plugin/src/main/java/org/sonar/plugins/java/JavaSonarWayProfile.java
 
-<b>For inspiration how to write more rules look for</b>:
+<strong>For inspiration how to write more rules look for</strong>:
 https://github.com/SonarSource/sonar-java/tree/master/java-checks/src/main/java/org/sonar/java/checks
 
 For maven repository artifacts see: http://maven-repository.com/artifact/org.codehaus.sonar-plugins.java

@@ -39,9 +39,9 @@ public class CustomQualityProfile extends ProfileDefinition {
         RulesProfile profile = RulesProfile.create(CUSTOM_QA_PROFILE, Java.KEY);
         for (Class ruleClass : annotatedCollection) {
             String ruleKey = RuleAnnotationUtils.getRuleKey(ruleClass);
-            System.out.println("#misak69 | ruleKey:"+ruleKey+" for class:"+ruleClass);
+            System.out.println("#misak69 | CustomQualityProfile-ruleKey:"+ruleKey+" for class:"+ruleClass);
             Rule rule = ruleFinder.findByKey(CustomRulesDefinition.REPOSITORY_KEY, ruleKey);
-            System.out.println("#misak69 | rule:"+rule);
+            System.out.println("#misak69 | CustomQualityProfile-rule:"+rule);
             profile.activateRule(rule, null);
         }
         return profile;
