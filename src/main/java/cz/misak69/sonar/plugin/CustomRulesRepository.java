@@ -26,7 +26,7 @@ public class CustomRulesRepository implements JavaFileScannersFactory, BatchExte
 
     @Override
     public Iterable<JavaFileScanner> createJavaFileScanners() {
-        return Arrays.<JavaFileScanner>asList(new TestRule());
+        return Arrays.<JavaFileScanner>asList(new TestRule(), new PublicAccessImportRule());
     }
 
 }

@@ -34,10 +34,10 @@ public class CustomRulesDefinition implements RulesDefinition {
     public void define(Context context) {
         System.out.println("#misak69 | CustomRulesDefinition.define");
         NewRepository  repository = context.createRepository(REPOSITORY_KEY, CoreProperties.CATEGORY_JAVA).setName("Custom rule repository");
-        NewRule accessRule = repository.createRule(PublicAccessRuleDeprecated.KEY)
-                                       .setName(PublicAccessRuleDeprecated.NAME)
-                                       .setHtmlDescription(PublicAccessRuleDeprecated.DESCRIPTION)
-                                       .setTags(PublicAccessRuleDeprecated.TAG)
+        NewRule accessRule = repository.createRule(PublicAccessImportRule.KEY)
+                                       .setName(PublicAccessImportRule.NAME)
+                                       .setHtmlDescription(PublicAccessImportRule.DESCRIPTION)
+                                       .setTags(PublicAccessImportRule.TAG)
                                        .setStatus(RuleStatus.READY)
                                        .setSeverity(Severity.CRITICAL);
 

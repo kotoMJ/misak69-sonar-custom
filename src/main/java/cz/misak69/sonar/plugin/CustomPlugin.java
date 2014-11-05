@@ -25,7 +25,7 @@ public class CustomPlugin extends SonarPlugin {
     @Override
     public List getExtensions() {
         System.out.println("#misak69 | CustomPlugin.getExtensions");
-        return ImmutableList.of(CustomRulesDefinition.class, CustomRulesRepository.class, TestRule.class);
+        return ImmutableList.of(CustomRulesDefinition.class, CustomRulesRepository.class, TestRule.class, PublicAccessImportRule.class);
     }
 
 
