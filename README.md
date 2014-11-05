@@ -11,7 +11,7 @@
 
 Usage of Sonar 4.5 with gradle needs to use gradle 2.3 and higher (see https://issues.gradle.org/browse/GRADLE-3062)
 
-<strong>Use project https://github.com/misak69/misak69-sonar-custom-resource as project to be analysed by sonar(using gradle)</strong>
+You may use testing project <em>https://github.com/misak69/misak69-sonar-custom-resource</em> as project to be analysed by sonar(using gradle).
 
 <h2>Basic knowledge for Java plugin API development/deployment</h2>
 
