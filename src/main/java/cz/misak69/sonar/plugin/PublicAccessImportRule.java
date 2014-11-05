@@ -32,6 +32,7 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
     public static final String NAME = "Public access rule";
     public static final String DESCRIPTION = "Avoid using non API classes across modules!";
     public static final String TAG = TestRule.TAG;
+    public static final String VIOLATION_MESSAGE = "Bad using package implementation!";
 
     private final RuleKey RULE_KEY = RuleKey.of(CustomRulesDefinition.REPOSITORY_KEY, KEY);
 
@@ -134,7 +135,7 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
                 } else {
                     System.out.println("#misak69 | PublicAccessRule.violation: Bad using package implementation for package:"+currentPackage);
                     //that's bad, using package implementation
-                    context.addIssue(importTree,this.RULE_KEY,"Bad using package implementation!");
+                    context.addIssue(importTree,this.RULE_KEY, VIOLATION_MESSAGE);
                 }
             }
         }

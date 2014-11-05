@@ -1,7 +1,7 @@
-package cz.misak69.module_a.api;
+package cz.misak69.module_alfa.api;
 
 
-import cz.misak69.module_b.impl.BModuleImpl;
+import cz.misak69.module_beta.impl.BModuleImpl;
 
 public class AModuleApi {
 

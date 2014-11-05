@@ -1,4 +1,4 @@
-package cz.misak69.module_a.application.fo01_aModule;
+package cz.misak69.module_alfa.application.fo01_aModule;
 
 /**
  * User: mjenicek

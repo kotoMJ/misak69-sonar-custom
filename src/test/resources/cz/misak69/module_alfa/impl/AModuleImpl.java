@@ -1,4 +1,4 @@
-package cz.misak69.module_a.impl;
+package cz.misak69.module_alfa.impl;
 
 public class AModuleImpl {
 
