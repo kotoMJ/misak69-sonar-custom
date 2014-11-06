@@ -11,6 +11,9 @@ import org.sonar.squidbridge.checks.CheckMessagesVerifierRule;
 import java.io.File;
 
 
+/**
+ * In current build dependency is unit test working only when SONAR is UP&running (see TODO in build.gradle).
+ */
 public class PublicAccessImportRuleTest {
 
 

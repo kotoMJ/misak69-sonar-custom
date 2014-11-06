@@ -50,6 +50,8 @@ dependencies {
     testCompile libraries["junit"]
     testRuntime libraries["sonar"]
     testRuntime libraries["junit"]
+
+    //TODO: Following build dependency causes unit test to be working only when SONAR is UP&running.
     //Link sonar web libraries to prevent test runtime fail such as: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor
     testRuntime fileTree(dir: "$sonarDestination/web/deploy/plugins/java/META-INF/lib", includes: ['*.jar'])
 
