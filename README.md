@@ -9,7 +9,7 @@
 <li>Gradle 2.x</li>
 </ul>
 
-Usage of Sonar 4.5 with gradle needs to use gradle 2.3 and higher (see https://issues.gradle.org/browse/GRADLE-3062)
+Usage of Sonar 4.5 with gradle needs to use gradle 2.2+ (see https://issues.gradle.org/browse/GRADLE-3062)
 
 You may use testing project <em>https://github.com/misak69/misak69-sonar-custom-resource</em> as project to be analysed by sonar(using gradle).
 
