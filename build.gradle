@@ -40,7 +40,8 @@ ext.libraries = [
                 [group: "org.codehaus.sonar.sslr", name:"sslr-core", version:"1.20", transitive: false]
         ],
         "junit": [
-                [group: "junit", name: "junit", version: "4.10"]
+                [group: "junit", name: "junit", version: "4.10"],
+                [group: "org.ow2.asm", name:"asm-debug-all", version: "5.0.3"]
         ]
 ]
 
@@ -50,11 +51,6 @@ dependencies {
     testCompile libraries["junit"]
     testRuntime libraries["sonar"]
     testRuntime libraries["junit"]
-
-    //TODO: Following build dependency causes unit test to be working only when SONAR is UP&running.
-    //Link sonar web libraries to prevent test runtime fail such as: java.lang.ClassNotFoundException: org.objectweb.asm.ClassVisitor
-    testRuntime fileTree(dir: "$sonarDestination/web/deploy/plugins/java/META-INF/lib", includes: ['*.jar'])
-
 }
 
 jar.archiveName = "misak69-ruleset-temp.jar"
