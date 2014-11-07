@@ -182,9 +182,16 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
     }
 
     public boolean isFOtoModule(String pckg, String currentFO){
-        if ((currentFO!=null)&&(currentFO.length()>0)){
-            for (String foModule: FO_TO_MODULE.get(currentFO)){
-                if (pckg.contains(foModule)) return true;
+        if (pckg==null) return false;
+        if (currentFO==null) return false;
+
+        if (currentFO.length()>0){
+            if (FO_TO_MODULE.containsKey(currentFO)){
+                for (String foModule: FO_TO_MODULE.get(currentFO)){
+                    if (pckg.contains(foModule)) return true;
+                }
+            }else{
+                System.err.println("#misak69 | PublicAccessRule.Unknown FO :"+currentFO+"! Update FO_TO_MODULE in PublicAccessImportRule.");
             }
         }
         return false;
