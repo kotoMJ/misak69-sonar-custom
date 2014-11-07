@@ -1,5 +1,7 @@
 package cz.misak69.sonar.plugin;
 
+import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
+import cz.misak69.sonar.plugin.rules.TestRule;
 import org.sonar.api.CoreProperties;
 import org.sonar.api.rule.RuleStatus;
 import org.sonar.api.rule.Severity;

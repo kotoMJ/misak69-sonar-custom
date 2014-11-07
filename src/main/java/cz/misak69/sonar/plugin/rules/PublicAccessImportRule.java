@@ -1,5 +1,7 @@
-package cz.misak69.sonar.plugin;
+package cz.misak69.sonar.plugin.rules;
 
+import cz.misak69.sonar.plugin.CustomRulesDefinition;
+import cz.misak69.sonar.plugin.utils.TreeUtils;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;

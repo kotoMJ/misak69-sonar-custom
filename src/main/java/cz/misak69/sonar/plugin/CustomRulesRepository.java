@@ -1,5 +1,7 @@
 package cz.misak69.sonar.plugin;
 
+import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
+import cz.misak69.sonar.plugin.rules.TestRule;
 import org.sonar.api.BatchExtension;
 import org.sonar.plugins.java.api.JavaFileScanner;
 import org.sonar.plugins.java.api.JavaFileScannersFactory;

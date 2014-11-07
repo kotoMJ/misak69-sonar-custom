@@ -4,8 +4,10 @@
  * mailto:contact AT sonarsource DOT com
  */
 
-package cz.misak69.sonar.plugin;
+package cz.misak69.sonar.plugin.rules;
 
+import cz.misak69.sonar.plugin.CustomQualityProfile;
+import cz.misak69.sonar.plugin.CustomRulesDefinition;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;

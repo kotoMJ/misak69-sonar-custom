@@ -1,5 +1,7 @@
 package cz.misak69.sonar.plugin;
 
+import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
+import cz.misak69.sonar.plugin.rules.TestRule;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
@@ -35,6 +37,7 @@ public class CustomQualityProfile extends ProfileDefinition {
         System.out.println("#misak69 | CustomQualityProfile.createProfile");
         Collection<Class> annotatedCollection = new ArrayList<Class>();
         annotatedCollection.add(TestRule.class);
+        annotatedCollection.add(PublicAccessImportRule.class);
 
         RulesProfile profile = RulesProfile.create(CUSTOM_QA_PROFILE, Java.KEY);
         for (Class ruleClass : annotatedCollection) {

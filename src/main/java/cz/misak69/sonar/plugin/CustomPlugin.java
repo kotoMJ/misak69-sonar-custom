@@ -6,6 +6,8 @@
 package cz.misak69.sonar.plugin;
 
 import com.google.common.collect.ImmutableList;
+import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
+import cz.misak69.sonar.plugin.rules.TestRule;
 import org.sonar.api.SonarPlugin;
 
 import java.util.List;
@@ -25,7 +27,11 @@ public class CustomPlugin extends SonarPlugin {
     @Override
     public List getExtensions() {
         System.out.println("#misak69 | CustomPlugin.getExtensions");
-        return ImmutableList.of(CustomRulesDefinition.class, CustomRulesRepository.class, TestRule.class, PublicAccessImportRule.class);
+        return ImmutableList.of(CustomQualityProfile.class,
+                                CustomRulesDefinition.class,
+                                CustomRulesRepository.class,
+                                TestRule.class,
+                                PublicAccessImportRule.class);
     }
 
 

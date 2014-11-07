@@ -1,5 +1,6 @@
 package cz.misak69.sonar.plugin;
 
+import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import junit.framework.Assert;
 import org.junit.Rule;
 import org.junit.Test;

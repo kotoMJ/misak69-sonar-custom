@@ -1,4 +1,4 @@
-package cz.misak69.sonar.plugin;
+package cz.misak69.sonar.plugin.utils;
 
 import org.sonar.plugins.java.api.tree.ExpressionTree;
 import org.sonar.plugins.java.api.tree.IdentifierTree;
