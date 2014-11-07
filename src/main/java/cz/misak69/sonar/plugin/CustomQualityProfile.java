@@ -14,10 +14,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Quality profile pre-definition.
- *
- * CURRENTLY not working for this plugin.
- *
+ * Quality profile definition.
+ * This profile groups all rules bundled with this plugin.
  */
 public class CustomQualityProfile extends ProfileDefinition {
 
