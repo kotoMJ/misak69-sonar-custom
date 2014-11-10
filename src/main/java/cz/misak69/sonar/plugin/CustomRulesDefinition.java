@@ -2,6 +2,7 @@ package cz.misak69.sonar.plugin;
 
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.CoreProperties;
 import org.sonar.api.rule.RuleStatus;
 import org.sonar.api.rule.Severity;
@@ -24,8 +25,10 @@ import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
  */
 public class CustomRulesDefinition implements RulesDefinition {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomQualityProfile.class);
+
     public static final String REPOSITORY_KEY = "custom-rules";
-    public static final String REPOSITORY_NAME = "CustomRuleRepository";
+    public static final String REPOSITORY_NAME = "Misak69 rule repository";
 
     private final RulesDefinitionXmlLoader xmlLoader;
 
@@ -34,8 +37,8 @@ public class CustomRulesDefinition implements RulesDefinition {
     }
     @Override
     public void define(Context context) {
-        System.out.println("#misak69 | CustomRulesDefinition.define");
-        NewRepository  repository = context.createRepository(REPOSITORY_KEY, CoreProperties.CATEGORY_JAVA).setName("Custom rule repository");
+        logger.debug("initialized...");
+        NewRepository  repository = context.createRepository(REPOSITORY_KEY, CoreProperties.CATEGORY_JAVA).setName(REPOSITORY_NAME);
         NewRule accessRule = repository.createRule(PublicAccessImportRule.KEY)
                                        .setName(PublicAccessImportRule.NAME)
                                        .setHtmlDescription(PublicAccessImportRule.DESCRIPTION)

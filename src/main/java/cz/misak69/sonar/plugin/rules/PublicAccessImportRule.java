@@ -2,6 +2,7 @@ package cz.misak69.sonar.plugin.rules;
 
 import cz.misak69.sonar.plugin.CustomRulesDefinition;
 import cz.misak69.sonar.plugin.utils.TreeUtils;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
@@ -30,6 +31,8 @@ import java.util.regex.Pattern;
         tags = {PublicAccessImportRule.TAG})
 public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileScanner {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(PublicAccessImportRule.class);
+
     public static final String KEY = "public-access-rule";
     public static final String NAME = "Public access rule";
     public static final String DESCRIPTION = "Avoid using non API classes across modules!";
@@ -41,9 +44,12 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
     private JavaFileScannerContext context;
 
     Map<String, List<String>> FO_TO_MODULE = new HashMap<String, List<String>>();
+    Map<String, String> PROJECT_EXTENSION = new HashMap<String,String>();
     List<String> EXCEPTIONS_TO_SKIP = new ArrayList<String>();
     List<String> API_PACKAGE = new ArrayList<String>();
     List<String> MODULE_PACKAGE = new ArrayList<String>();
+    List<String> WS_CLIENT_TO_SKIP = new ArrayList<String>();
+
 
     private String currentPackage = null;
     private String currentProject = null;
@@ -52,7 +58,7 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
     public PublicAccessImportRule() {
         super();
         init();
-        System.out.println("#misak69 | PublicAccessRule.constructed...");
+        logger.debug("constructed...");
     }
 
     private void init(){
@@ -85,9 +91,15 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
                 "module_data_objects",
                 "app_init"));
 
+        WS_CLIENT_TO_SKIP.addAll(Arrays.asList(
+                "service.client",
+                "statementsetup"));
+
         API_PACKAGE.addAll(Arrays.asList("api", "action"));
 
         MODULE_PACKAGE.addAll(Arrays.asList("module_", "app_"));
+
+        PROJECT_EXTENSION.put("app_mojeplatba", "app_cexi");
     }
 
     @Override
@@ -97,7 +109,7 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
         currentProject = "";
         currentFunctionalArea = "";
 
-        System.out.println("#misak69 | PublicAccessRule.scanFile: "+context.getFileName());
+        logger.debug("fileName: {}",context.getFileName());
 
         // The call to the scan method on the root of the tree triggers the visit of the AST by this visitor
         scan(context.getTree());
@@ -107,7 +119,7 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
     public void visitCompilationUnit(CompilationUnitTree tree) {
         if (tree.packageName() != null) {
             currentPackage = TreeUtils.concatenate(tree.packageName());
-            System.out.println("#misak69 | PublicAccessRule.visitCompilationUnit-package.name: "+currentPackage);
+            logger.debug("-package.name: "+currentPackage);
 
             if (currentPackage.startsWith("cz.misak69")){
                 currentProject = cutProjectOrModule(currentPackage);
@@ -124,18 +136,29 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
             String declaredImport = TreeUtils.concatenate((ExpressionTree) importTree.qualifiedIdentifier());
 
 
-            if ((currentProject.length()>0) && (declaredImport.length()>0) && isLinkToModule(currentPackage)){
-                System.out.println("#misak69 | PublicAccessRule.visitImport for project: "+currentProject);
-                if (declaredImport.contains(currentProject)){
-                    //thats ok, same module
+            if ((currentProject.length()>0) && (declaredImport.length()>0)&&(isDCSPackage(declaredImport))){
+
+                if (containsException(declaredImport)){
+                    logger.debug("-containsException: {}",declaredImport);
+                    return;
+                }
+                if (isServiceClient(declaredImport)){
+                    logger.debug("-isServiceClient: {}",declaredImport);
+                    return;
+                }
+
+                logger.debug("currentProject: {}",currentProject);
+                if (isTheSameOrExtendedModule(declaredImport)){
+                    //thats ok, same (or extended) module
+                    logger.debug("-sameModule: {}",declaredImport);
                 } else if (isAPI(declaredImport)) {
                     //thats ok, using API
-                    System.out.println("#misak69 | PublicAccessRule.visitImport.isAPI");
+                    logger.debug("-isAPI: {}",declaredImport);
                 } else if (isFOtoModule(declaredImport, currentFunctionalArea)) {
                     //thats ok, calling fo
-                    System.out.println("#misak69 | PublicAccessRule.visitImport.isFOO");
+                    logger.debug("-isFOO: {}",declaredImport);
                 } else {
-                    System.out.println("#misak69 | PublicAccessRule.violation: Bad using package implementation for package:"+currentPackage);
+                    logger.debug("-violation: Bad declared import: {}",declaredImport);
                     //that's bad, using package implementation
                     context.addIssue(importTree,this.RULE_KEY, VIOLATION_MESSAGE);
                 }
@@ -164,12 +187,17 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
         return projectName;
     }
 
-    public boolean isLinkToModule(String pckg){
+    public boolean containsException(String declaredImport){
         for (String exception:EXCEPTIONS_TO_SKIP){
-            if (pckg.contains(exception)) return false;
+            if (declaredImport.contains(exception)) return true;
         }
-        for (String linkSubstring: MODULE_PACKAGE){
-            if (pckg.contains(linkSubstring)) return true;
+        return false;
+    }
+
+
+    public boolean isServiceClient(String declaredImport){
+        for (String serviceFragment:WS_CLIENT_TO_SKIP){
+            if (declaredImport.contains(serviceFragment)) return true;
         }
         return false;
     }
@@ -191,9 +219,26 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
                     if (pckg.contains(foModule)) return true;
                 }
             }else{
-                System.err.println("#misak69 | PublicAccessRule.Unknown FO :"+currentFO+"! Update FO_TO_MODULE in PublicAccessImportRule.");
+                logger.error("Unknown FO :"+currentFO+"! Update FO_TO_MODULE in PublicAccessImportRule.");
             }
         }
         return false;
+    }
+
+    public boolean isTheSameOrExtendedModule(String declaredImport){
+        boolean ret = declaredImport.contains(currentProject);
+
+        if (!ret){
+            for (String extendedProject: PROJECT_EXTENSION.keySet()){
+                ret = declaredImport.contains(PROJECT_EXTENSION.get(extendedProject));
+                if (ret) break;
+            }
+        }
+
+        return ret;
+    }
+
+    public boolean isDCSPackage(String givenPackage){
+        return givenPackage.startsWith("cz.misak69");
     }
 }

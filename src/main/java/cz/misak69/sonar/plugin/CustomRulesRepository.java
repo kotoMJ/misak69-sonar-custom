@@ -2,6 +2,7 @@ package cz.misak69.sonar.plugin;
 
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.BatchExtension;
 import org.sonar.plugins.java.api.JavaFileScanner;
 import org.sonar.plugins.java.api.JavaFileScannersFactory;
@@ -20,10 +21,11 @@ import java.util.Arrays;
  */
 public class CustomRulesRepository implements JavaFileScannersFactory, BatchExtension {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomQualityProfile.class);
+
     public CustomRulesRepository() {
         super();
-
-        System.out.println("#misak69 | CustomRulesRepository.constructed");
+        logger.debug("constructor...");
     }
 
     @Override

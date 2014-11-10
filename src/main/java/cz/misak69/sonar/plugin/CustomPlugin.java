@@ -3,6 +3,7 @@ package cz.misak69.sonar.plugin;
 import com.google.common.collect.ImmutableList;
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.SonarPlugin;
 
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.List;
  */
 public class CustomPlugin extends SonarPlugin {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomPlugin.class);
+
     /**
      * Declares all the extensions implemented in the plugin
      */
     @Override
     public List getExtensions() {
-        System.out.println("#misak69 | CustomPlugin.getExtensions");
+        logger.debug("visited...");
         return ImmutableList.of(CustomQualityProfile.class,
                                 CustomRulesDefinition.class,
                                 CustomRulesRepository.class,

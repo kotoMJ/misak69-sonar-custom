@@ -2,6 +2,7 @@ package cz.misak69.sonar.plugin;
 
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
@@ -19,14 +20,15 @@ import java.util.Collection;
  */
 public class CustomQualityProfile extends ProfileDefinition {
 
-    public static final String CUSTOM_QA_PROFILE = "Custom Test profile";
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomQualityProfile.class);
 
+    public static final String CUSTOM_QA_PROFILE = "Custom Test profile";
 
     private final RuleFinder ruleFinder;
 
     public CustomQualityProfile(RuleFinder ruleFinder) {
         this.ruleFinder = ruleFinder;
-        System.out.println("#misak69 | CustomQualityProfile.constructor");
+        logger.debug("constructor...");
     }
 
 
@@ -40,9 +42,9 @@ public class CustomQualityProfile extends ProfileDefinition {
         RulesProfile profile = RulesProfile.create(CUSTOM_QA_PROFILE, Java.KEY);
         for (Class ruleClass : annotatedCollection) {
             String ruleKey = RuleAnnotationUtils.getRuleKey(ruleClass);
-            System.out.println("#misak69 | CustomQualityProfile-ruleKey:"+ruleKey+" for class:"+ruleClass);
+            logger.debug("-ruleKey: {} for class: {}",ruleKey,ruleClass);
             Rule rule = ruleFinder.findByKey(CustomRulesDefinition.REPOSITORY_KEY, ruleKey);
-            System.out.println("#misak69 | CustomQualityProfile-rule:"+rule);
+            logger.debug("-rule: {}",rule);
             profile.activateRule(rule, null);
         }
         return profile;

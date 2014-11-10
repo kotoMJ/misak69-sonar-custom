@@ -2,6 +2,7 @@ package cz.misak69.sonar.plugin.rules;
 
 import cz.misak69.sonar.plugin.CustomQualityProfile;
 import cz.misak69.sonar.plugin.CustomRulesDefinition;
+import org.slf4j.LoggerFactory;
 import org.sonar.api.rule.RuleKey;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
@@ -32,6 +33,8 @@ import org.sonar.plugins.java.api.tree.MethodTree;
 
 public class TestRule extends BaseTreeVisitor implements JavaFileScanner {
 
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(TestRule.class);
+
     public static final String KEY = "custom-test-rule";
     private final RuleKey RULE_KEY = RuleKey.of(CustomRulesDefinition.REPOSITORY_KEY, KEY);
     public static final String NAME = "Custom test rule";
@@ -45,7 +48,7 @@ public class TestRule extends BaseTreeVisitor implements JavaFileScanner {
 
     public TestRule() {
         super();
-        System.out.println("#misak69 | TestRule.constructed...");
+        logger.debug("constructed...");
     }
 
     /**
@@ -61,7 +64,7 @@ public class TestRule extends BaseTreeVisitor implements JavaFileScanner {
     public void scanFile(JavaFileScannerContext context) {
         this.context = context;
 
-        System.out.println("#misak69 | TestRule.scanFile...");
+        logger.debug("visited...");
 
         // The call to the scan method on the root of the tree triggers the visit of the AST by this visitor
         scan(context.getTree());
@@ -79,7 +82,7 @@ public class TestRule extends BaseTreeVisitor implements JavaFileScanner {
     @Override
     public void visitMethod(MethodTree tree) {
 
-        System.out.println("#misak69 | TestRule.visitMethod...");
+        logger.debug("visited...");
 
 
         // All the code located before the call to the overridden method is executed before visiting the node
