@@ -22,6 +22,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ *  Rule to check whether modules communicate wia API packages only.
+ *  This rule implements many exceptions from this rule (according to real life project).
  *
  */
 @Rule(key = PublicAccessImportRule.KEY,

@@ -5,9 +5,24 @@
         </encoder>
     </appender>
 
+    <appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator class="ch.qos.logback.classic.sift.JNDIBasedContextDiscriminator">
+            <defaultValue>unknown</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE-${contextName}" class="ch.qos.logback.core.FileAppender">
+                <file>misak69.rules.log</file>
+                <encoder>
+                    <pattern>%d{HH:mm:ss} %-5level %logger{60}.%M - %msg%n</pattern>
+                </encoder>
+            </appender>
+        </sift>
+    </appender>
+
     <logger name="cz.misak69" level="DEBUG"/>
 
     <root level="INFO">
+        <appender-ref ref="SIFT" />
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

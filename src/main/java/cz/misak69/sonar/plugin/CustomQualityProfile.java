@@ -22,7 +22,7 @@ public class CustomQualityProfile extends ProfileDefinition {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomQualityProfile.class);
 
-    public static final String CUSTOM_QA_PROFILE = "Custom Test profile";
+    public static final String CUSTOM_QA_PROFILE = "Misak69 Java profile";
 
     private final RuleFinder ruleFinder;
 
