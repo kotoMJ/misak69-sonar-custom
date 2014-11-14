@@ -1,5 +1,6 @@
 package cz.misak69.sonar.plugin;
 
+import cz.misak69.sonar.plugin.rules.GetterIsRule;
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ public class CustomQualityProfile extends ProfileDefinition {
         Collection<Class> annotatedCollection = new ArrayList<Class>();
         annotatedCollection.add(TestRule.class);
         annotatedCollection.add(PublicAccessImportRule.class);
+        annotatedCollection.add(GetterIsRule.class);
 
         RulesProfile profile = RulesProfile.create(CUSTOM_QA_PROFILE, Java.KEY);
         for (Class ruleClass : annotatedCollection) {

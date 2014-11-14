@@ -1,4 +1,4 @@
-package cz.misak69.sonar.plugin;
+package cz.misak69.sonar.plugin.rules;
 
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import junit.framework.Assert;

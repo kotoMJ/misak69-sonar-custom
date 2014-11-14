@@ -1,6 +1,7 @@
 package cz.misak69.sonar.plugin;
 
 import com.google.common.collect.ImmutableList;
+import cz.misak69.sonar.plugin.rules.GetterIsRule;
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,8 @@ public class CustomPlugin extends SonarPlugin {
                                 CustomRulesDefinition.class,
                                 CustomRulesRepository.class,
                                 TestRule.class,
-                                PublicAccessImportRule.class);
+                                PublicAccessImportRule.class,
+                                GetterIsRule.class);
     }
 
 

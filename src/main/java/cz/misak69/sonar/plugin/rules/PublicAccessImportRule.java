@@ -4,6 +4,7 @@ import cz.misak69.sonar.plugin.CustomRulesDefinition;
 import cz.misak69.sonar.plugin.utils.TreeUtils;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.rule.RuleKey;
+import org.sonar.api.rule.Severity;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.java.api.JavaFileScanner;
@@ -27,7 +28,7 @@ import java.util.regex.Pattern;
  *
  */
 @Rule(key = PublicAccessImportRule.KEY,
-        priority = Priority.MINOR,
+        priority = Priority.MAJOR,
         name = PublicAccessImportRule.NAME,
         description = PublicAccessImportRule.DESCRIPTION,
         tags = {PublicAccessImportRule.TAG})
@@ -35,6 +36,7 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(PublicAccessImportRule.class);
 
+    public static final String SEVERITY = Severity.MAJOR;
     public static final String KEY = "public-access-rule";
     public static final String NAME = "Public access rule";
     public static final String DESCRIPTION = "Avoid using non API classes across modules!";

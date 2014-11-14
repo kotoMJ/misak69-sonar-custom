@@ -1,5 +1,6 @@
 package cz.misak69.sonar.plugin;
 
+import cz.misak69.sonar.plugin.rules.GetterIsRule;
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,7 @@ public class CustomRulesDefinition implements RulesDefinition {
                                        .setHtmlDescription(PublicAccessImportRule.DESCRIPTION)
                                        .setTags(PublicAccessImportRule.TAG)
                                        .setStatus(RuleStatus.READY)
-                                       .setSeverity(Severity.CRITICAL);
+                                       .setSeverity(PublicAccessImportRule.SEVERITY);
 
         NewRule testRule = repository.createRule(TestRule.KEY)
                 .setName(TestRule.NAME)
@@ -52,6 +53,13 @@ public class CustomRulesDefinition implements RulesDefinition {
                 .setTags(TestRule.TAG)
                 .setStatus(RuleStatus.READY)
                 .setSeverity(Severity.INFO);
+
+        NewRule getterIsRule = repository.createRule(GetterIsRule.KEY)
+                .setName(GetterIsRule.NAME)
+                .setHtmlDescription(GetterIsRule.DESCRIPTION)
+                .setTags(GetterIsRule.TAG)
+                .setStatus(RuleStatus.READY)
+                .setSeverity(GetterIsRule.SEVERITY);
 
 //        xmlLoader.load(repository, getClass().getResourceAsStream("/rules/rules.xml"), "UTF-8");
         repository.done();
