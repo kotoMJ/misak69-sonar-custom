@@ -32,13 +32,14 @@ if (!project.hasProperty('sonarDestination'))throw new GradleException("Missing 
 ext.libraries = [
         "sonar": [
                 [group: "org.codehaus.sonar", name: "sonar-plugin-api", version: "4.5", transitive:true],
-                [group: "org.codehaus.sonar-plugins.java", name:"sonar-java-plugin", version: "2.4",transitive:false],
+                [group: "org.codehaus.sonar-plugins.java", name:"sonar-java-plugin", version: "2.5.1",transitive:false],
 
-                //!ATTENTION! all below libraries are already bundled in sonar-java-plugin-2.4.jar (use only such bundled jar tools)
-                [group: "org.codehaus.sonar-plugins.java", name: "java-squid", version: "2.4", transitive: false],
+                //!ATTENTION! all below libraries are already bundled in sonar-java-plugin-2.5.1.jar (use only such bundled jar tools)
+                [group: "org.codehaus.sonar-plugins.java", name: "java-squid", version: "2.5.1", transitive: false],
                 [group: "org.codehaus.sonar.sslr-squid-bridge", name: "sslr-squid-bridge", version: "2.4",transitive: false],
                 [group: "org.codehaus.sonar.sslr", name:"sslr-core", version:"1.20", transitive: false],
-                [group: "ch.qos.logback", name: "logback-classic", version: "1.1.2"],
+
+                [group: "cglib", name:"cglib-nodep", version: "3.1", transitive: false],
 
                 //Using logback as implementation for SLF4J to evade conflict with SONAR SLF4J implementation.
                 [group: "ch.qos.logback", name: "logback-classic", version: "1.1.2"]

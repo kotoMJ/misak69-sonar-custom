@@ -113,7 +113,7 @@ public class PublicAccessImportRule extends BaseTreeVisitor implements JavaFileS
         currentProject = "";
         currentFunctionalArea = "";
 
-        logger.debug("fileName: {}",context.getFileName());
+        logger.debug("fileName: {}",context.getFileKey());
 
         // The call to the scan method on the root of the tree triggers the visit of the AST by this visitor
         scan(context.getTree());

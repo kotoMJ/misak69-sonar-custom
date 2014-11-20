@@ -64,7 +64,7 @@ public class GetterIsRule extends BaseTreeVisitor implements JavaFileScanner {
 
     @Override
     public void scanFile(JavaFileScannerContext context) {
-        String fileName = context.getFileName();
+        String fileName = context.getFileKey();
         logger.debug("fileName: {}", fileName);
 
         /* Skip files ....*/
