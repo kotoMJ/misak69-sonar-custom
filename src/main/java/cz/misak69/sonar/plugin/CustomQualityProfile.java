@@ -3,6 +3,7 @@ package cz.misak69.sonar.plugin;
 import cz.misak69.sonar.plugin.rules.GetterIsRule;
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
+import cz.misak69.sonar.plugin.rules.UnitTestCoverageRule;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
@@ -40,6 +41,7 @@ public class CustomQualityProfile extends ProfileDefinition {
         annotatedCollection.add(TestRule.class);
         annotatedCollection.add(PublicAccessImportRule.class);
         annotatedCollection.add(GetterIsRule.class);
+        annotatedCollection.add(UnitTestCoverageRule.class);
 
         RulesProfile profile = RulesProfile.create(CUSTOM_QA_PROFILE, Java.KEY);
         for (Class ruleClass : annotatedCollection) {

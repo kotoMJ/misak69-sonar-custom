@@ -3,6 +3,7 @@ package cz.misak69.sonar.plugin;
 import cz.misak69.sonar.plugin.rules.GetterIsRule;
 import cz.misak69.sonar.plugin.rules.PublicAccessImportRule;
 import cz.misak69.sonar.plugin.rules.TestRule;
+import cz.misak69.sonar.plugin.rules.UnitTestCoverageRule;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.CoreProperties;
 import org.sonar.api.rule.RuleStatus;
@@ -60,6 +61,13 @@ public class CustomRulesDefinition implements RulesDefinition {
                 .setTags(GetterIsRule.TAG)
                 .setStatus(RuleStatus.READY)
                 .setSeverity(GetterIsRule.SEVERITY);
+
+        NewRule unitTestCoverageRule = repository.createRule(UnitTestCoverageRule.KEY)
+                .setName(UnitTestCoverageRule.NAME)
+                .setHtmlDescription(UnitTestCoverageRule.DESCRIPTION)
+                .setTags(UnitTestCoverageRule.TAG)
+                .setStatus(RuleStatus.READY)
+                .setSeverity(UnitTestCoverageRule.SEVERITY);
 
 //        xmlLoader.load(repository, getClass().getResourceAsStream("/rules/rules.xml"), "UTF-8");
         repository.done();

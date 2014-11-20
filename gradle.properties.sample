@@ -1,5 +1,8 @@
 # -- define local sonar installation (where to deploy custom plugin)
-#sonarDestination=/work/sonar/sonarqube-4.5
+#sonarDestination=/work/sonar/sonarqube-4.5.1
 
 # -- define custom repository (to get libraries), mavenCentral is used otherwise
 #customMavenRepository=http://nexus.yourdomain.cz/yourdepartment-nexus/content/groups/public/
+
+# -- version of plugin
+#pluginVersion=1.0.1
