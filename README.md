@@ -5,11 +5,11 @@
 
 <h2>Designed for API:</h2>
 <ul>
-<li>Sonar 4.5</li>
+<li>Sonar 4.5.1</li>
 <li>Gradle 2.x</li>
 </ul>
 
-Usage of Sonar 4.5 with gradle needs to use gradle 2.2+ (see https://issues.gradle.org/browse/GRADLE-3062)
+Usage of Sonar 4.5.1 with gradle needs to use gradle 2.2+ (see https://issues.gradle.org/browse/GRADLE-3062)
 
 You may use testing project <em>https://github.com/misak69/misak69-sonar-custom-resource</em> as project to be analysed by sonar(using gradle).
 
@@ -62,7 +62,7 @@ http://xircles.codehaus.org/lists/dev@sonar.codehaus.org
 <strong>Important Sonar API changes:</strong><br/>
 http://docs.codehaus.org/display/SONAR/API+Changes
 
-<strong>Wide range of mostly 4.5 examples based on BaseTreeVisitor</strong>
+<strong>Wide range of mostly 4.5+ examples based on BaseTreeVisitor</strong>
 https://github.com/SonarSource/sonar-java/tree/master/java-checks/src/main/java/org/sonar/java/checks
 
 <strong>Maven repository</strong><br/>
